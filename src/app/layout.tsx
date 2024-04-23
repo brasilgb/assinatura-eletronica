@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
@@ -10,10 +10,10 @@ import { usePathname } from "next/navigation";
 import { checkIsPublicRoute } from "@/functions/check-is-public-route";
 
 const roboto = Roboto({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  weight: ['100', '300', '400', '500', '700', '900'],
-  display: 'swap',
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -37,9 +37,7 @@ export default function RootLayout({
             {!isPublicPage && (
               <PrivateRoute>
                 <Header />
-                <div className="flex-grow bg-gray-100 pb-4">
-                  {children}
-                </div>
+                <div className="flex-grow bg-gray-100 pb-4">{children}</div>
                 <Footer />
               </PrivateRoute>
             )}

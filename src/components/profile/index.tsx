@@ -1,19 +1,19 @@
-'use client';
-import { useAuthContext } from '@/contexts/AuthContext';
-import Link from 'next/link';
-import { useState } from 'react';
-import { IoMdUnlock } from 'react-icons/io';
-import { IoExit, IoImage, IoPerson } from 'react-icons/io5';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
+"use client";
+import { useAuthContext } from "@/contexts/AuthContext";
+import Link from "next/link";
+import { useState } from "react";
+import { IoMdUnlock } from "react-icons/io";
+import { IoExit, IoImage, IoPerson } from "react-icons/io5";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Profile = () => {
   const { signOut, user } = useAuthContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggle = () => {
-    setIsOpen(old => !old);
+    setIsOpen((old) => !old);
   };
-  const transClass = isOpen ? 'flex' : 'hidden';
+  const transClass = isOpen ? "flex" : "hidden";
 
   return (
     <>
@@ -29,7 +29,7 @@ const Profile = () => {
             <MdOutlineKeyboardArrowDown
               color="#F6F5FA"
               size={20}
-              className={`duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
+              className={`duration-300 ${isOpen ? "-rotate-180" : "rotate-0"}`}
             />
           </div>
         </button>

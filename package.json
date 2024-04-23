@@ -5,14 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p 3004",
+    "lint": "next lint",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
     "@hassanmojab/react-modern-calendar-datepicker": "^3.1.7",
     "axios": "^1.6.8",
     "moment": "^2.30.1",
     "next": "14.2.2",
+    "prettier": "^3.2.5",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.1.0"

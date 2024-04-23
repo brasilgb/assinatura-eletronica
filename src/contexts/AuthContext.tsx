@@ -1,6 +1,6 @@
-'use client';
+"use client";
 import moment from "moment";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import React, {
   ReactNode,
   createContext,
@@ -8,7 +8,7 @@ import React, {
   useContext,
   useEffect,
   useState,
-} from 'react';
+} from "react";
 
 const AuthContext = createContext({} as any);
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [dataInicial, setDataInicial] = useState(new Date());
   const [dataFinal, setDataFinal] = useState(new Date());
   const [yearSelected, setYearSelected] = useState<any>(
-    moment().format('YYYY')
+    moment().format("YYYY"),
   );
   const [yearExists, setYearExists] = useState(false);
   const [filialDocs, setFilialDocs] = useState<any>(null);
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const loadStorage = async () => {
-      const recoveredUser = localStorage.getItem('portal_user');
+      const recoveredUser = localStorage.getItem("portal_user");
       if (recoveredUser) {
         setUser(JSON.parse(recoveredUser));
       }
@@ -95,9 +95,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const signOut = () => {
-    localStorage.removeItem('portal_user');
+    localStorage.removeItem("portal_user");
     setUser(null);
-    router.push('http://portal.gruposolar.com.br/login');
+    router.push("http://portal.gruposolar.com.br/login");
   };
 
   return (
@@ -116,10 +116,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         yearSelected,
         setFilialDocs,
         filialDocs,
-        assignType, 
+        assignType,
         setAssignType,
-        assignStatus, 
-        setAssignStatus
+        assignStatus,
+        setAssignStatus,
       }}
     >
       {children}

@@ -1,50 +1,50 @@
 export const CustomLocale = {
   // months list by order
   months: [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Augosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro',
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Augosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
   ],
 
   // week days by order
   weekDays: [
     {
-      name: 'Domingo', // used for accessibility
-      short: 'D', // displayed at the top of days' rows
+      name: "Domingo", // used for accessibility
+      short: "D", // displayed at the top of days' rows
       isWeekend: true, // is it a formal weekend or not?
     },
     {
-      name: 'Segunda',
-      short: 'S',
+      name: "Segunda",
+      short: "S",
     },
     {
-      name: 'Terça',
-      short: 'T',
+      name: "Terça",
+      short: "T",
     },
     {
-      name: 'Quarta',
-      short: 'Q',
+      name: "Quarta",
+      short: "Q",
     },
     {
-      name: 'Quinta',
-      short: 'Q',
+      name: "Quinta",
+      short: "Q",
     },
     {
-      name: 'Sexta',
-      short: 'S',
+      name: "Sexta",
+      short: "S",
     },
     {
-      name: 'Sábado',
-      short: 'S',
+      name: "Sábado",
+      short: "S",
       isWeekend: true,
     },
   ],
@@ -73,20 +73,20 @@ export const CustomLocale = {
   },
 
   // texts in the date picker
-  nextMonth: 'Next Month',
-  previousMonth: 'Previous Month',
-  openMonthSelector: 'Open Month Selector',
-  openYearSelector: 'Open Year Selector',
-  closeMonthSelector: 'Close Month Selector',
-  closeYearSelector: 'Close Year Selector',
-  defaultPlaceholder: 'Select...',
+  nextMonth: "Next Month",
+  previousMonth: "Previous Month",
+  openMonthSelector: "Open Month Selector",
+  openYearSelector: "Open Year Selector",
+  closeMonthSelector: "Close Month Selector",
+  closeYearSelector: "Close Year Selector",
+  defaultPlaceholder: "Select...",
 
   // for input range value
-  from: 'from',
-  to: 'to',
+  from: "from",
+  to: "to",
 
   // used for input value when multi dates are selected
-  digitSeparator: ',',
+  digitSeparator: ",",
 
   // if your provide -2 for example, year will be 2 digited
   yearLetterSkip: 0,
