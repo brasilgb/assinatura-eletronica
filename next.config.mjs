@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  basePath: "/assinatura-eletronica",
-  assetPrefix: "/assinatura-eletronica",
+  basePath: "/assinatura",
+  assetPrefix: "/assinatura",
   webpack(config, { isServer }) {
     if (!isServer) {
       config.resolve.fallback = {
