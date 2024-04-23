@@ -84,6 +84,7 @@ const SubBarTop = () => {
               <ul className="p-1">
                 {cities.map((city: any, idx: number) => (
                   <li
+                  key={idx}
                     className={`py-1 text-xs ${idx < cities.length - 1 && "border-b border-b-gray-300"}`}
                   >
                     <button
