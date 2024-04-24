@@ -33,10 +33,14 @@ export default function Home() {
     getAssignDocs();
   }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus]);
 
-  const handleButtonLink = (link: any) => {
-    navigator['clipboard'].writeText(link);
-    setShowModal(true);
-    setLinkCopied(link)
+  const handleButtonLink = async (link: any) => {
+    try {
+      await navigator.clipboard.writeText(link);
+      setShowModal(true);
+      setLinkCopied(link)
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const ModalCopy = () => {
