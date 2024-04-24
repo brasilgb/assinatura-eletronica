@@ -33,7 +33,7 @@ export default function Home() {
     getAssignDocs();
   }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus]);
 
-  const handleButtonLink = async (link: any) => {
+  const handleButtonLink = async (link: string) => {
     try {
       await navigator.clipboard.writeText(link);
       setShowModal(true);
