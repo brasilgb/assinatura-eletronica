@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
     };
     getFirstData();
-  }, [setDataInicial]);
+  }, [setDataInicial, assignStatus]);
 
   // useEffect(() => {
   //   const setStorage = () => {
