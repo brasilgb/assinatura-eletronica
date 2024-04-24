@@ -46,19 +46,6 @@ export default function Home() {
     } document.body.removeChild(textArea)
   };
 
-  /**
-   * Copies the text passed as param to the system clipboard
-   * Check if using HTTPS and navigator.clipboard is available
-   * Then uses standard clipboard API, otherwise uses fallback
-  */
-  const copyToClipboard = (content) => {
-    if (window.isSecureContext && navigator.clipboard) {
-      navigator.clipboard.writeText(content);
-    } else {
-      unsecuredCopyToClipboard(content);
-    }
-  };
-
   const handleButtonLink = (link: string) => {
     if (window.isSecureContext && navigator.clipboard) {
       navigator.clipboard.writeText(link);
