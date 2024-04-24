@@ -34,7 +34,7 @@ export default function Home() {
   }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus]);
 
   const handleButtonLink = (link: any) => {
-    navigator.clipboard.writeText(link);
+    navigator['clipboard'].writeText(link);
     setShowModal(true);
     setLinkCopied(link)
   }
