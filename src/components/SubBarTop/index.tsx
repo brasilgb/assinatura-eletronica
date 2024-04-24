@@ -22,7 +22,8 @@ const SubBarTop = () => {
     assignType,
     assignStatus,
     setAssignType,
-    setAssignStatus
+    setAssignStatus,
+    setDataInicial
   } = useAuthContext();
   const [cities, setCities] = useState<any>([]);
   const [inputValue, setInputValue] = useState("");
@@ -52,6 +53,11 @@ const SubBarTop = () => {
     setFilialDocs(id);
     setShowCities(false);
   };
+
+  const handleSignedDownlod = () => {
+    setAssignStatus({ "statusa": "A", "statusb": "D" });
+    setDataInicial(new Date());
+  }
 
   return (
     <>
@@ -84,7 +90,7 @@ const SubBarTop = () => {
               <ul className="p-1">
                 {cities.map((city: any, idx: number) => (
                   <li
-                  key={idx}
+                    key={idx}
                     className={`py-1 text-xs ${idx < cities.length - 1 && "border-b border-b-gray-300"}`}
                   >
                     <button
@@ -126,16 +132,16 @@ const SubBarTop = () => {
           <ul className="pr-10 flex items center justify-start gap-6">
             <li>
               <button
-                onClick={() => setAssignStatus("P")}
-                className={`w-32 flex items-center justify-center py-1.5 rounded md:text-xs text-[10px] text-center font-medium uppercase border hover:bg-solar-green-primary hover:text-solar-blue-secundary duration-300 border-solar-gray-200 text-gray-500 ${assignStatus === "P" ? "bg-solar-green-primary text-solar-blue-secundary" : ""}`}
+                onClick={() => setAssignStatus({ "statusa": "P", "statusb": "E" })}
+                className={`w-32 flex items-center justify-center py-1.5 rounded md:text-xs text-[10px] text-center font-medium uppercase border hover:bg-solar-green-primary hover:text-solar-blue-secundary duration-300 border-solar-gray-200 text-gray-500 ${assignStatus.statusa === "P" && assignStatus.statusb === "E" ? "bg-solar-green-primary text-solar-blue-secundary" : ""}`}
               >
                 Pendentes
               </button>
             </li>
             <li>
               <button
-                onClick={() => setAssignStatus("A")}
-                className={`w-32 flex items-center justify-center py-1.5 rounded md:text-xs text-[10px] text-center font-medium uppercase border hover:bg-solar-green-primary hover:text-solar-blue-secundary duration-300 border-solar-gray-200 text-gray-500 ${assignStatus === "A" ? "bg-solar-green-primary text-solar-blue-secundary" : ""}`}
+                onClick={() => handleSignedDownlod()}
+                className={`w-32 flex items-center justify-center py-1.5 rounded md:text-xs text-[10px] text-center font-medium uppercase border hover:bg-solar-green-primary hover:text-solar-blue-secundary duration-300 border-solar-gray-200 text-gray-500 ${assignStatus.statusa === "A" && assignStatus.statusb === "D" ? "bg-solar-green-primary text-solar-blue-secundary" : ""}`}
               >
                 Assinados
               </button>

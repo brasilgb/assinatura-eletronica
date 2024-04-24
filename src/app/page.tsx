@@ -7,20 +7,28 @@ import { useEffect, useState } from "react";
 import { IoCopy } from "react-icons/io5";
 
 export default function Home() {
-  const { filialDocs, setAssignStatus, assignStatus, setAssignType, assignType, setDataInicial, dataInicial, dataFinal } = useAuthContext();
+  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal } = useAuthContext();
   const [assignDocs, setAssignDocs] = useState<any>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<string>("");
 
   useEffect(() => {
+
     const getAssignDocs = async () => {
       await cailun.post('(WS_FILTER_SIGNATURES)', {
-        status: assignStatus,
-        startDate: moment(dataInicial).format('YYYYMMDD'),
-        endDate: moment(dataFinal).format('YYYYMMDD'),
-        type: assignType,
-        origin: filialDocs,
-        ignorePeriod: false
+
+        "statuses": [
+          {
+            "status": assignStatus.statusa
+          },
+          {
+            "status": assignStatus.statusb
+          }
+        ],
+        "origin": filialDocs,
+        "startDate": moment(dataInicial).format('YYYY-MM-DD'),
+        "endDate": moment(dataFinal).format('YYYY-MM-DD'),
+        "type": assignType
       })
         .then((result) => {
           const { data } = result.data.response;
