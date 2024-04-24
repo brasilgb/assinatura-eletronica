@@ -33,14 +33,40 @@ export default function Home() {
     getAssignDocs();
   }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus]);
 
-  const handleButtonLink = async (link: string) => {
+  const unsecuredCopyToClipboard = (text: any) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
     try {
-      await navigator.clipboard.writeText(link);
-      setShowModal(true);
-      setLinkCopied(link)
-    } catch (e) {
-      console.log(e);
+      document.execCommand('copy')
+    } catch (err) {
+      console.error('Unable to copy to clipboard', err)
+    } document.body.removeChild(textArea)
+  };
+
+  /**
+   * Copies the text passed as param to the system clipboard
+   * Check if using HTTPS and navigator.clipboard is available
+   * Then uses standard clipboard API, otherwise uses fallback
+  */
+  const copyToClipboard = (content) => {
+    if (window.isSecureContext && navigator.clipboard) {
+      navigator.clipboard.writeText(content);
+    } else {
+      unsecuredCopyToClipboard(content);
     }
+  };
+
+  const handleButtonLink = (link: string) => {
+    if (window.isSecureContext && navigator.clipboard) {
+      navigator.clipboard.writeText(link);
+    } else {
+      unsecuredCopyToClipboard(link);
+    }
+    setShowModal(true);
+    setLinkCopied(link)
   }
 
   const ModalCopy = () => {
