@@ -8,9 +8,7 @@ import moment from "moment";
 import { CustomLocale } from "./LocaleCalendar";
 import { useAuthContext } from "@/contexts/AuthContext";
 
-type Props = {};
-
-const DatePickerBI3 = (props: Props) => {
+const DatePickerBI3 = () => {
   const { dataFiltro, setDataInicial, setDataFinal } = useAuthContext();
 
   const [selectedRange, setSelectedRange] = useState<DayRange>({
