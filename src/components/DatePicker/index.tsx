@@ -9,18 +9,21 @@ import { CustomLocale } from "./LocaleCalendar";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 const DatePickerBI3 = () => {
-  const { dataFiltro, setDataInicial, setDataFinal } = useAuthContext();
+  const { dataFiltro, setDataInicial, dataInicial, setDataFinal, dataFinal } = useAuthContext();
+//   console.log(dataInicial);
+  
+// console.log(parseInt(moment(dataInicial).format("MM")));
 
   const [selectedRange, setSelectedRange] = useState<DayRange>({
     from: {
-      year: parseInt(moment().format("YYYY")),
-      month: parseInt(moment().format("MM")),
-      day: parseInt(moment().format("DD")),
+      year: parseInt(moment(dataInicial).format("YYYY")),
+      month: parseInt(moment(dataInicial).format("MM")),
+      day: parseInt(moment(dataInicial).format("DD")),
     },
     to: {
-      year: parseInt(moment().format("YYYY")),
-      month: parseInt(moment().format("MM")),
-      day: parseInt(moment().format("DD")),
+      year: parseInt(moment(dataFinal).format("YYYY")),
+      month: parseInt(moment(dataFinal).format("MM")),
+      day: parseInt(moment(dataFinal).format("DD")),
     },
   });
 
@@ -34,20 +37,20 @@ const DatePickerBI3 = () => {
       setDataInicial(
         moment(
           selectedRange.from?.year +
-            "-" +
-            selectedRange.from?.month +
-            "-" +
-            selectedRange.from?.day,
+          "-" +
+          selectedRange.from?.month +
+          "-" +
+          selectedRange.from?.day,
           "YYYY-MM-DD",
         ).toDate(),
       );
       setDataFinal(
         moment(
           selectedRange.to?.year +
-            "-" +
-            selectedRange.to?.month +
-            "-" +
-            selectedRange.to?.day,
+          "-" +
+          selectedRange.to?.month +
+          "-" +
+          selectedRange.to?.day,
           "YYYY-MM-DD",
         ).toDate(),
       );

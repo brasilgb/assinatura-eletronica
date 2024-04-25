@@ -22,8 +22,7 @@ const SubBarTop = () => {
     assignType,
     assignStatus,
     setAssignType,
-    setAssignStatus,
-    setDataInicial
+    setAssignStatus
   } = useAuthContext();
   const [cities, setCities] = useState<any>([]);
   const [inputValue, setInputValue] = useState("");
@@ -56,7 +55,6 @@ const SubBarTop = () => {
 
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
-    setDataInicial(new Date());
   }
 
   return (
@@ -146,14 +144,6 @@ const SubBarTop = () => {
                 Assinados
               </button>
             </li>
-            {/* <li>
-              <button
-                onClick={() => setAssignStatus("D")}
-                className={`w-32 flex items-center justify-center py-1.5 rounded md:text-xs text-[10px] text-center font-medium uppercase border hover:bg-solar-green-primary hover:text-solar-blue-secundary duration-300 border-solar-gray-200 text-gray-500 ${assignStatus === "D" ? "bg-solar-green-primary text-solar-blue-secundary" : ""}`}
-              >
-                Downloads
-              </button>
-            </li> */}
           </ul>
         </div>
       </div>
