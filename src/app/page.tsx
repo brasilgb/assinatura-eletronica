@@ -98,7 +98,7 @@ export default function Home() {
           <h1 className="text-lg text-gray-700 ml-2">acompanhe os status das assinaturas</h1>
         </div>
         <SubBarTop />
-        <div className="mt-6 bg-gray-50 shadow rounded-md p-2">
+        <div className="mt-6 bg-gray-50 shadow rounded-md p-2 overflow-y-auto max-h-[650px]">
           <table className="table-auto w-full text-left text-gray-600 bg-solar-blue-secundary rounded-t-md">
             <tr className=" text-solar-gray-light">
               <th className="p-1">Código</th>

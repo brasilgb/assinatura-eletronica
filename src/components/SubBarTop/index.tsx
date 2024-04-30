@@ -22,7 +22,9 @@ const SubBarTop = () => {
     assignType,
     assignStatus,
     setAssignType,
-    setAssignStatus
+    setAssignStatus,
+    dataFinal, 
+    dataInicial
   } = useAuthContext();
   const [cities, setCities] = useState<any>([]);
   const [inputValue, setInputValue] = useState("");

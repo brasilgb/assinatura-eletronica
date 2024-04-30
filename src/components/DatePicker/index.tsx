@@ -10,9 +10,6 @@ import { useAuthContext } from "@/contexts/AuthContext";
 
 const DatePickerBI3 = () => {
   const { dataFiltro, setDataInicial, dataInicial, setDataFinal, dataFinal } = useAuthContext();
-//   console.log(dataInicial);
-  
-// console.log(parseInt(moment(dataInicial).format("MM")));
 
   const [selectedRange, setSelectedRange] = useState<DayRange>({
     from: {
