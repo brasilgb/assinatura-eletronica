@@ -12,21 +12,16 @@ const DatePickerBI3 = () => {
   const { dataFiltro, setDataInicial, dataInicial, setDataFinal, dataFinal } = useAuthContext();
 
   const [selectedRange, setSelectedRange] = useState<DayRange>({
-    from: {
-      year: parseInt(moment(dataInicial).format("YYYY")),
-      month: parseInt(moment(dataInicial).format("MM")),
-      day: parseInt(moment(dataInicial).format("DD")),
-    },
-    to: {
-      year: parseInt(moment(dataFinal).format("YYYY")),
-      month: parseInt(moment(dataFinal).format("MM")),
-      day: parseInt(moment(dataFinal).format("DD")),
-    },
+    from: null,
+    to: null,
   });
 
+// console.log('selectedRange', selectedRange.from);
+
   const formatInputRange = () => {
+    const dateNow = new Date();
     if (!selectedRange) return "";
-    return `${("0" + selectedRange.from?.day).slice(-2) + "/" + ("0" + selectedRange.from?.month).slice(-2) + "/" + selectedRange.from?.year + " - " + ("0" + selectedRange.to?.day).slice(-2) + "/" + ("0" + selectedRange.to?.month).slice(-2) + "/" + selectedRange.to?.year}`;
+    return `${("0" + dateNow.getDay()).slice(-2) + "/" + ("0" + dateNow.getMonth()).slice(-2) + "/" + dateNow.getFullYear() + " - " + ("0" + dateNow.getDay()).slice(-2) + "/" + ("0" + dateNow.getMonth()).slice(-2) + "/" + dateNow.getFullYear()}`;
   };
 
   useEffect(() => {

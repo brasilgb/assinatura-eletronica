@@ -1,9 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IoCalendar } from "react-icons/io5";
 import DatePickerBI3 from "../DatePicker";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { RiBrush2Fill } from "react-icons/ri";
+import cailun from "@/services/cailun";
+import moment from "moment";
 
 async function getData() {
   const res = await fetch(
@@ -23,9 +25,12 @@ const SubBarTop = () => {
     assignStatus,
     setAssignType,
     setAssignStatus,
-    dataFinal, 
-    dataInicial
+    dataFinal,
+    dataInicial,
+    filialDocs,
+    setAssignDocs
   } = useAuthContext();
+
   const [cities, setCities] = useState<any>([]);
   const [inputValue, setInputValue] = useState("");
   const [showCities, setShowCities] = useState(false);
@@ -58,6 +63,32 @@ const SubBarTop = () => {
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
   }
+
+  // filterOptions(statusa, statusb, filial)
+  const filterOptions = useCallback(async ({ filters }: any) => {
+    await cailun.post('(WS_FILTER_SIGNATURES)', {
+
+      "statuses": [
+        {
+          "status": assignStatus.statusa
+        },
+        {
+          "status": assignStatus.statusb
+        }
+      ],
+      "origin": filialDocs,
+      "startDate": moment(dataInicial).format('YYYY-MM-DD'),
+      "endDate": moment(dataFinal).format('YYYY-MM-DD'),
+      "type": assignType
+    })
+      .then((result) => {
+        const { data } = result.data.response;
+        setAssignDocs(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [filialDocs, dataInicial, dataFinal]);
 
   return (
     <>
