@@ -78,6 +78,12 @@ const SubBarTop = () => {
     setInputCustomer(value);
   };
 
+  const handleSubmit = (e:any) => {
+    e.preventDefault();
+    setCodeCustomer(inputCustomer)
+    setInputCustomer("")
+  }
+
   return (
     <>
       <div className="container m-auto flex items-center justify-between bg-gray-50 p-2 shadow rounded-md">
@@ -93,21 +99,23 @@ const SubBarTop = () => {
           <DatePickerBI3 />
         </div>
         <div className="flex-none mr-5 relative">
-          <input
-            className="border w-full border-gray-300 rounded text-gray-500 text-sm placeholder:text-sm px-1 py-1"
-            type="text"
-            placeholder="Código cliente"
-            onChange={handleCustomer}
-            value={inputCustomer}
-          />
-          <IoMdPerson
-            onClick={() => {
-              setCodeCustomer(inputCustomer);
-              setInputCustomer("");
-            }}
-            size={22}
-            className="absolute right-2 top-1 cursor-pointer text-solar-wine-support"
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              className="border w-full border-gray-300 rounded text-gray-500 text-sm placeholder:text-sm px-1 py-1"
+              type="text"
+              placeholder="Código cliente"
+              onChange={handleCustomer}
+              value={inputCustomer}
+            />
+            <button
+              type="submit"
+            >
+              <IoMdPerson
+                size={22}
+                className="absolute right-2 top-1 cursor-pointer text-solar-wine-support"
+              />
+            </button>
+          </form>
         </div>
         <div className="flex-1 relative">
           <div className="flex items-center relative">
