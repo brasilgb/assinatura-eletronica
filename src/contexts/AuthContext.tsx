@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [filialDocs, setFilialDocs] = useState<any>(null);
   const [assignType, setAssignType] = useState("V");
   const [assignStatus, setAssignStatus] = useState<any>({"statusa":"P", "statusb": "E"});
-// console.log('status P E = ', assignStatus.statusa);
 
   useEffect(() => {
     const getFirstData = async () => {
@@ -41,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       })
         .then((result) => {
           const { data } = result.data.response;
-          const first = data.map((v: any) => (v.creationDate)).shift();
+          const first = data.map((v: any) => (v.creationDate)).pop();
           console.log('data', first);
           setDataInicial(first);
         });
