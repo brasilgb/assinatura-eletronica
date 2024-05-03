@@ -1,11 +1,9 @@
 "use client";
-import cailun from "@/services/cailun";
+import { DayRange } from "@hassanmojab/react-modern-calendar-datepicker";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import React, {
-  ReactNode,
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useState,
@@ -22,30 +20,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [yearSelected, setYearSelected] = useState<any>(
     moment().format("YYYY"),
   );
-  const [filialDocs, setFilialDocs] = useState<any>(null);
-  const [assignType, setAssignType] = useState("V");
-  const [assignStatus, setAssignStatus] = useState<any>({"statusa":"P", "statusb": "E"});
-  const [assignDocs, setAssignDocs] = useState<any>([]);
 
-  useEffect(() => {
-    const getFirstData = async () => {
-      await cailun.post('(WS_FILTER_SIGNATURES)', {
-        "statuses": [
-          {
-            "status": assignStatus.statusa
-          },
-          {
-            "status": assignStatus.statusb
-          }
-        ],
-      })
-        .then((result) => {
-          const { data } = result.data.response;
-          setAssignDocs(data);
-        });
-    };
-    getFirstData();
-  }, [setDataInicial]);
+  const [selectedRange, setSelectedRange] = useState<DayRange>({
+    from: null,
+    to: null,
+  });
+
+  const [filialDocs, setFilialDocs] = useState<any>(null);
+  const [codeCustomer, setCodeCustomer] = useState<number>(0);
+  const [assignType, setAssignType] = useState("V");
+  const [assignStatus, setAssignStatus] = useState<any>({ "statusa": "P", "statusb": "E" });
+  const [assignDocs, setAssignDocs] = useState<any>([]);
 
   useEffect(() => {
     const setStorage = () => {
@@ -141,8 +126,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setAssignType,
         assignStatus,
         setAssignStatus,
-        assignDocs, 
-        setAssignDocs
+        assignDocs,
+        setAssignDocs,
+        selectedRange, 
+        setSelectedRange,
+        codeCustomer, 
+        setCodeCustomer
       }}
     >
       {children}

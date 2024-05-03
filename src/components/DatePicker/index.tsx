@@ -9,12 +9,7 @@ import { CustomLocale } from "./LocaleCalendar";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 const DatePickerBI3 = () => {
-  const { dataFiltro, setDataInicial, dataInicial, setDataFinal, dataFinal } = useAuthContext();
-
-  const [selectedRange, setSelectedRange] = useState<DayRange>({
-    from: null,
-    to: null,
-  });
+  const { dataFiltro, setDataInicial, setDataFinal, selectedRange, setSelectedRange } = useAuthContext();
 
 // console.log('selectedRange', selectedRange.from);
 

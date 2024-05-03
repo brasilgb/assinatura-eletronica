@@ -1,11 +1,12 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { IoCalendar } from "react-icons/io5";
+import { IoCalendar, IoPeople, IoReload, IoReloadCircle } from "react-icons/io5";
 import DatePickerBI3 from "../DatePicker";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { RiBrush2Fill } from "react-icons/ri";
 import cailun from "@/services/cailun";
 import moment from "moment";
+import { IoMdPeople, IoMdPerson } from "react-icons/io";
 
 async function getData() {
   const res = await fetch(
@@ -25,14 +26,13 @@ const SubBarTop = () => {
     assignStatus,
     setAssignType,
     setAssignStatus,
-    dataFinal,
-    dataInicial,
-    filialDocs,
-    setAssignDocs
+    setSelectedRange,
+    setCodeCustomer,
   } = useAuthContext();
 
   const [cities, setCities] = useState<any>([]);
   const [inputValue, setInputValue] = useState("");
+  const [inputCustomer, setInputCustomer] = useState("");
   const [showCities, setShowCities] = useState(false);
 
   const handleCities = async (e: any) => {
@@ -64,38 +64,50 @@ const SubBarTop = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
   }
 
-  // filterOptions(statusa, statusb, filial)
-  const filterOptions = useCallback(async ({ filters }: any) => {
-    await cailun.post('(WS_FILTER_SIGNATURES)', {
+  const resetFilters = () => {
+    setSelectedRange({
+      from: null,
+      to: null,
+    });
+    setFilialDocs(null);
+    setCodeCustomer(0);
+  };
 
-      "statuses": [
-        {
-          "status": assignStatus.statusa
-        },
-        {
-          "status": assignStatus.statusb
-        }
-      ],
-      "origin": filialDocs,
-      "startDate": moment(dataInicial).format('YYYY-MM-DD'),
-      "endDate": moment(dataFinal).format('YYYY-MM-DD'),
-      "type": assignType
-    })
-      .then((result) => {
-        const { data } = result.data.response;
-        setAssignDocs(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [filialDocs, dataInicial, dataFinal]);
+  const handleCustomer = (e: any) => {
+    const value = e.target.value.toLowerCase();
+    setInputCustomer(value);
+  };
 
   return (
     <>
       <div className="container m-auto flex items-center justify-between bg-gray-50 p-2 shadow rounded-md">
-        <div className="flex items-center justify-center border rounded-md text-gray-400 mr-10 py-0.5 px-2">
+        <button
+          onClick={() => resetFilters()}
+          title="Resetar filtros"
+          className="mr-2 p-1 rounded-md bg-solar-green-primary text-solar-blue-secundary border border-solar-gray-200 shadow-sm"
+        >
+          <IoReload size={21} />
+        </button>
+        <div className="flex items-center justify-center border rounded-md text-gray-400 mr-5 py-0.5 px-2">
           <IoCalendar size={18} />
           <DatePickerBI3 />
+        </div>
+        <div className="flex-none mr-5 relative">
+          <input
+            className="border w-full border-gray-300 rounded text-gray-500 text-sm placeholder:text-sm px-1 py-1"
+            type="text"
+            placeholder="Código cliente"
+            onChange={handleCustomer}
+            value={inputCustomer}
+          />
+          <IoMdPerson
+            onClick={() => {
+              setCodeCustomer(inputCustomer);
+              setInputCustomer("");
+            }}
+            size={22}
+            className="absolute right-2 top-1 cursor-pointer text-solar-wine-support"
+          />
         </div>
         <div className="flex-1 relative">
           <div className="flex items-center relative">

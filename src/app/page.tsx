@@ -7,13 +7,12 @@ import { useEffect, useState } from "react";
 import { IoCopy } from "react-icons/io5";
 
 export default function Home() {
-  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal } = useAuthContext();
+  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer } = useAuthContext();
   const [assignDocs, setAssignDocs] = useState<any>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<string>("");
 
   useEffect(() => {
-
     const getAssignDocs = async () => {
       await cailun.post('(WS_FILTER_SIGNATURES)', {
 
@@ -25,9 +24,10 @@ export default function Home() {
             "status": assignStatus.statusb
           }
         ],
-        "origin": filialDocs,
-        "startDate": moment(dataInicial).format('YYYY-MM-DD'),
-        "endDate": moment(dataFinal).format('YYYY-MM-DD'),
+        "origin": filialDocs === null ? '' : filialDocs,
+        "customerCode": codeCustomer,
+        "startDate": selectedRange.from === null ? '' : moment(dataInicial).format('YYYY-MM-DD'),
+        "endDate": selectedRange.to === null ? '' : moment(dataFinal).format('YYYY-MM-DD'),
         "type": assignType
       })
         .then((result) => {
@@ -39,7 +39,7 @@ export default function Home() {
         });
     };
     getAssignDocs();
-  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus]);
+  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus, codeCustomer]);
 
   const unsecuredCopyToClipboard = (text: any) => {
     const textArea = document.createElement("textarea");
