@@ -11,12 +11,11 @@ import { useAuthContext } from "@/contexts/AuthContext";
 const DatePickerBI3 = () => {
   const { dataFiltro, setDataInicial, setDataFinal, selectedRange, setSelectedRange } = useAuthContext();
 
-// console.log('selectedRange', selectedRange.from);
+  // console.log('selectedRange', selectedRange.from);
 
   const formatInputRange = () => {
-    const dateNow = new Date();
-    if (!selectedRange) return "";
-    return `${("0" + dateNow.getDay()).slice(-2) + "/" + ("0" + dateNow.getMonth()).slice(-2) + "/" + dateNow.getFullYear() + " - " + ("0" + dateNow.getDay()).slice(-2) + "/" + ("0" + dateNow.getMonth()).slice(-2) + "/" + dateNow.getFullYear()}`;
+    if (!selectedRange?.from || !selectedRange?.to) return '';
+    return `${('0' + selectedRange.from?.day).slice(-2) + '/' + ('0' + selectedRange.from?.month).slice(-2) + '/' + selectedRange.from?.year + ' - ' + ('0' + selectedRange.to?.day).slice(-2) + '/' + ('0' + selectedRange.to?.month).slice(-2) + '/' + selectedRange.to?.year}`;
   };
 
   useEffect(() => {
@@ -48,8 +47,8 @@ const DatePickerBI3 = () => {
     <DatePicker
       value={selectedRange}
       onChange={setSelectedRange}
-      inputPlaceholder={`${moment(dataFiltro).format("DD/MM/YYYY")}`} // placeholder
-      formatInputText={formatInputRange} // format value
+      inputPlaceholder={`${moment().format("DD/MM/YYYY")} - ${moment().format("DD/MM/YYYY")}`}
+      formatInputText={formatInputRange}
       inputClassName="!border-0 outline-none !bg-transparent !text-gray-400 !font-medium !text-xs !px-1" // custom class
       calendarClassName="responsive-calendar"
       shouldHighlightWeekends
