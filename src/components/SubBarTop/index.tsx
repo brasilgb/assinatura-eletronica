@@ -15,6 +15,7 @@ const SubBarTop = () => {
     setAssignStatus,
     setSelectedRange,
     setCodeCustomer,
+    setInputValue
   } = useAuthContext();
 
   const [inputCustomer, setInputCustomer] = useState("");
@@ -30,6 +31,7 @@ const SubBarTop = () => {
     });
     setFilialDocs(null);
     setCodeCustomer(0);
+    setInputValue("");
   };
 
   const handleCustomer = (e: any) => {

@@ -7,12 +7,12 @@ const InputSearch = () => {
 
   const {
     setFilialDocs,
+    inputValue,
+    setInputValue
   } = useAuthContext();
 
   const [resultCities, setResultCities] = useState<any>([]);
   const [allCities, setAllCities] = useState<any>([]);
-  const [showCities, setShowCities] = useState(false);
-  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     const getAllFiliais = async () => {
@@ -36,7 +36,6 @@ const InputSearch = () => {
         city.description.toLowerCase().includes(value),
       );
       setAllCities(result);
-      setShowCities(true);
     } else {
       setAllCities([]);
     }
@@ -45,7 +44,6 @@ const InputSearch = () => {
   const handleChangeCity = (id: number, filial: string) => {
     setInputValue(filial);
     setFilialDocs(id);
-    setShowCities(false);
     setAllCities([]);
   };
 
