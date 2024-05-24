@@ -1,23 +1,10 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { IoCalendar, IoPeople, IoReload, IoReloadCircle } from "react-icons/io5";
+import React, { useState } from "react";
+import { IoCalendar, IoReload } from "react-icons/io5";
 import DatePickerBI3 from "../DatePicker";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { RiBrush2Fill } from "react-icons/ri";
-import cailun from "@/services/cailun";
-import moment from "moment";
-import { IoMdPeople, IoMdPerson } from "react-icons/io";
-
-async function getData() {
-  const res = await fetch(
-    "http://api.gruposolar.com.br:8085/api/filiaisativas",
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
+import { IoMdPerson } from "react-icons/io";
+import InputSearch from "../InputSearch";
 
 const SubBarTop = () => {
   const {
@@ -30,35 +17,7 @@ const SubBarTop = () => {
     setCodeCustomer,
   } = useAuthContext();
 
-  const [cities, setCities] = useState<any>([]);
-  const [inputValue, setInputValue] = useState("");
   const [inputCustomer, setInputCustomer] = useState("");
-  const [showCities, setShowCities] = useState(false);
-
-  const handleCities = async (e: any) => {
-    const value = e.target.value.toLowerCase();
-    setInputValue(value);
-    if (value.length > 2) {
-      const city = await getData();
-      const result = city.filter((c: any) =>
-        c.NomeFilial.toLowerCase().includes(value),
-      );
-      setCities(result);
-      setShowCities(true);
-    }
-  };
-
-  useEffect(() => {
-    if (inputValue === "") {
-      setCities([]);
-    }
-  }, [inputValue]);
-
-  const handleChangeCity = (id: number, filial: string) => {
-    setInputValue(filial);
-    setFilialDocs(id);
-    setShowCities(false);
-  };
 
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
@@ -78,7 +37,7 @@ const SubBarTop = () => {
     setInputCustomer(value);
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     setCodeCustomer(inputCustomer)
     setInputCustomer("")
@@ -101,7 +60,7 @@ const SubBarTop = () => {
         <div className="flex-none mr-5 relative">
           <form onSubmit={handleSubmit}>
             <input
-              className="border w-full border-gray-300 rounded text-gray-500 text-sm placeholder:text-sm px-1 py-1"
+              className="border w-full border-gray-300 rounded h-8 text-gray-500 text-sm placeholder:text-sm px-1 py-1"
               type="text"
               placeholder="Código cliente"
               onChange={handleCustomer}
@@ -117,46 +76,8 @@ const SubBarTop = () => {
             </button>
           </form>
         </div>
-        <div className="flex-1 relative">
-          <div className="flex items-center relative">
-            <input
-              className="border w-full border-gray-300 rounded text-gray-500 text-sm placeholder:text-sm px-1 py-1"
-              type="text"
-              placeholder="Filtrar por filial"
-              onChange={handleCities}
-              value={inputValue}
-            />
-            <RiBrush2Fill
-              onClick={() => {
-                setFilialDocs(0);
-                setInputValue("");
-              }}
-              size={22}
-              className="absolute right-2 cursor-pointer text-solar-wine-support"
-            />
-          </div>
-
-          {showCities && inputValue.length > 2 && (
-            <div className="absolute bg-white border border-gray-200 w-full top-8 rounded shadow-md text-sm text-gray-500 max-h-60 overflow-y-auto">
-              <ul className="p-1">
-                {cities.map((city: any, idx: number) => (
-                  <li
-                    key={idx}
-                    className={`py-1 text-xs ${idx < cities.length - 1 && "border-b border-b-gray-300"}`}
-                  >
-                    <button
-                      onClick={() =>
-                        handleChangeCity(city.CodFilial, city.NomeFilial)
-                      }
-                      className="w-full text-left"
-                    >
-                      {city.NomeFilial}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        <div className="flex-1">
+          <InputSearch />
         </div>
         <div className="md:ml-10">
           <ul className="pr-10 flex items center justify-start gap-6">

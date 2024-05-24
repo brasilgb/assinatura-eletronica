@@ -49,7 +49,7 @@ const DatePickerBI3 = () => {
       onChange={setSelectedRange}
       inputPlaceholder={`${moment().format("DD/MM/YYYY")} - ${moment().format("DD/MM/YYYY")}`}
       formatInputText={formatInputRange}
-      inputClassName="!border-0 outline-none !bg-transparent !text-gray-400 !font-medium !text-xs !px-1" // custom class
+      inputClassName="!border-0 outline-none h-6 !bg-transparent !text-gray-400 !font-medium !text-xs !px-1" // custom class
       calendarClassName="responsive-calendar"
       shouldHighlightWeekends
       locale={CustomLocale}
