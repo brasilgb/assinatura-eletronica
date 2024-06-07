@@ -5,6 +5,7 @@ import DatePickerBI3 from "../DatePicker";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { IoMdPerson } from "react-icons/io";
 import InputSearch from "../InputSearch";
+import moment from "moment";
 
 const SubBarTop = () => {
   const {
@@ -15,13 +16,27 @@ const SubBarTop = () => {
     setAssignStatus,
     setSelectedRange,
     setCodeCustomer,
-    setInputValue
+    setInputValue,
+    dataInicial,
+    dataFinal
   } = useAuthContext();
 
   const [inputCustomer, setInputCustomer] = useState("");
 
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
+    setSelectedRange({
+      from: {
+        year: parseInt(moment(dataInicial).format('YYYY')),
+        month: parseInt(moment(dataInicial).format('MM')),
+        day: parseInt(moment(dataInicial).format('DD')),
+      },
+      to: {
+        year: parseInt(moment(dataFinal).format('YYYY')),
+        month: parseInt(moment(dataFinal).format('MM')),
+        day: parseInt(moment(dataFinal).format('DD')),
+      },
+    })
   }
 
   const resetFilters = () => {

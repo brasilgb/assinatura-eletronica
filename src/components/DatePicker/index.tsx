@@ -11,8 +11,6 @@ import { useAuthContext } from "@/contexts/AuthContext";
 const DatePickerBI3 = () => {
   const { dataFiltro, setDataInicial, setDataFinal, selectedRange, setSelectedRange } = useAuthContext();
 
-  // console.log('selectedRange', selectedRange.from);
-
   const formatInputRange = () => {
     if (!selectedRange?.from || !selectedRange?.to) return '';
     return `${('0' + selectedRange.from?.day).slice(-2) + '/' + ('0' + selectedRange.from?.month).slice(-2) + '/' + selectedRange.from?.year + ' - ' + ('0' + selectedRange.to?.day).slice(-2) + '/' + ('0' + selectedRange.to?.month).slice(-2) + '/' + selectedRange.to?.year}`;
