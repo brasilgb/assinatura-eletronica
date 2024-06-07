@@ -25,18 +25,18 @@ const SubBarTop = () => {
 
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
-    setSelectedRange({
-      from: {
-        year: parseInt(moment(dataInicial).format('YYYY')),
-        month: parseInt(moment(dataInicial).format('MM')),
-        day: parseInt(moment(dataInicial).format('DD')),
-      },
-      to: {
-        year: parseInt(moment(dataFinal).format('YYYY')),
-        month: parseInt(moment(dataFinal).format('MM')),
-        day: parseInt(moment(dataFinal).format('DD')),
-      },
-    })
+    // setSelectedRange({
+    //   from: {
+    //     year: parseInt(moment(dataInicial).format('YYYY')),
+    //     month: parseInt(moment(dataInicial).format('MM')),
+    //     day: parseInt(moment(dataInicial).format('DD')),
+    //   },
+    //   to: {
+    //     year: parseInt(moment(dataFinal).format('YYYY')),
+    //     month: parseInt(moment(dataFinal).format('MM')),
+    //     day: parseInt(moment(dataFinal).format('DD')),
+    //   },
+    // })
   }
 
   const resetFilters = () => {
