@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [assignStatus, setAssignStatus] = useState<any>({ "statusa": "P", "statusb": "E" });
   const [assignDocs, setAssignDocs] = useState<any>([]);
   const [inputValue, setInputValue] = useState("");
+  const [filterData, setFilterData] = useState<any>([]);
 
   // useEffect(() => {
   //   const setStorage = () => {
@@ -129,12 +130,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setAssignStatus,
         assignDocs,
         setAssignDocs,
-        selectedRange, 
+        selectedRange,
         setSelectedRange,
-        codeCustomer, 
+        codeCustomer,
         setCodeCustomer,
-        inputValue, 
-        setInputValue
+        inputValue,
+        setInputValue,
+        filterData,
+        setFilterData
       }}
     >
       {children}

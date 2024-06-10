@@ -17,26 +17,24 @@ const SubBarTop = () => {
     setSelectedRange,
     setCodeCustomer,
     setInputValue,
-    dataInicial,
-    dataFinal
   } = useAuthContext();
 
   const [inputCustomer, setInputCustomer] = useState("");
 
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
-    // setSelectedRange({
-    //   from: {
-    //     year: parseInt(moment(dataInicial).format('YYYY')),
-    //     month: parseInt(moment(dataInicial).format('MM')),
-    //     day: parseInt(moment(dataInicial).format('DD')),
-    //   },
-    //   to: {
-    //     year: parseInt(moment(dataFinal).format('YYYY')),
-    //     month: parseInt(moment(dataFinal).format('MM')),
-    //     day: parseInt(moment(dataFinal).format('DD')),
-    //   },
-    // })
+    setSelectedRange({
+      from: {
+        year: parseInt(moment().format('YYYY')),
+        month: parseInt(moment().format('MM')),
+        day: parseInt(moment().format('DD')),
+      },
+      to: {
+        year: parseInt(moment().format('YYYY')),
+        month: parseInt(moment().format('MM')),
+        day: parseInt(moment().format('DD')),
+      },
+    })
   }
 
   const resetFilters = () => {

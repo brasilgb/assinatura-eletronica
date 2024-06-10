@@ -1,4 +1,5 @@
 'use client'
+import Pagination from "@/components/Pagination";
 import SubBarTop from "@/components/SubBarTop";
 import { useAuthContext } from "@/contexts/AuthContext";
 import cailun from "@/services/cailun";
@@ -7,7 +8,7 @@ import { useEffect, useState } from "react";
 import { IoCopy } from "react-icons/io5";
 
 export default function Home() {
-  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer } = useAuthContext();
+  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, filterData } = useAuthContext();
   const [assignDocs, setAssignDocs] = useState<any>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<string>("");
@@ -98,7 +99,8 @@ export default function Home() {
           <h1 className="text-lg text-gray-700 ml-2">acompanhe os status das assinaturas</h1>
         </div>
         <SubBarTop />
-        <div className="mt-6 bg-gray-50 shadow rounded-md p-2 overflow-y-auto max-h-[650px]">
+        <div className="mt-6 bg-gray-50 shadow rounded-md p-2 overflow-y-auto">
+
           <table className="table-auto w-full text-left text-gray-600 bg-solar-blue-secundary rounded-t-md">
             <tr className=" text-solar-gray-light">
               <th className="p-1">Código</th>
@@ -112,8 +114,8 @@ export default function Home() {
               <th className="p-1">Status</th>
               <th className="p-1"></th>
             </tr>
-            {assignDocs?.map((doc: any, idx: number) => (
-              <tr key={idx} className={`${idx < assignDocs.length - 1 && 'border-b border-gray-20'} ${idx % 2 > 0 ? 'bg-gray-50' : 'bg-gray-100'} hover:bg-pink-50`}>
+            {filterData?.map((doc: any, idx: number) => (
+              <tr key={idx} className={`${idx < filterData.length - 1 && 'border-b border-gray-20'} ${idx % 2 > 0 ? 'bg-gray-50' : 'bg-gray-100'} hover:bg-pink-50`}>
                 <td className="p-1">{doc?.customerCode}</td>
                 <td className="p-1 text-sm font-bold">{doc?.customerName}</td>
                 <td className="p-1">{doc.originNF}</td>
@@ -134,8 +136,12 @@ export default function Home() {
                 </td>
               </tr>
             ))}
-
           </table>
+          {assignDocs?.length > 15 &&
+            <div className="py-8 pb-2">
+              <Pagination data={assignDocs} />
+            </div>
+          }
         </div>
       </main>
     </>
