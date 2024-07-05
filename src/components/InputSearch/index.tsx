@@ -59,9 +59,9 @@ const InputSearch = () => {
         />
         <RiBrush2Fill
           onClick={() => {
-            setFilialDocs(0);
+            setFilialDocs(null);
             setInputValue("");
-          }}
+          }} 
           size={22}
           className="absolute right-2 cursor-pointer text-solar-wine-support"
         />

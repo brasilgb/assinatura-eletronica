@@ -1,3 +1,4 @@
+'use client'
 import { useAuthContext } from "@/contexts/AuthContext";
 import React, { useEffect, useState } from 'react'
 import { IconContext } from "react-icons";
@@ -9,16 +10,18 @@ interface PaginationProps {
 }
 
 const Pagination = ({ data }: PaginationProps) => {
-    const { setFilterData } = useAuthContext();
+    const { setFilterData, assignDocs } = useAuthContext();
     const [page, setPage] = useState(0);
     const n = 15;
+
     useEffect(() => {
         setFilterData(
-            data?.filter((item: any, index: number) => {
+            assignDocs?.filter((item: any, index: number) => {
                 return (index >= page * n) && (index < (page + 1) * n);
             })
         );
-    }, [page, data]);
+    }, [page, assignDocs]);
+
 
     return (
         <ReactPaginate

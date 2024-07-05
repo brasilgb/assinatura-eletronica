@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { IoCopy } from "react-icons/io5";
 
 export default function Home() {
-  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, filterData } = useAuthContext();
-  const [assignDocs, setAssignDocs] = useState<any>([]);
+  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, filterData, assignDocs, setAssignDocs } = useAuthContext();
+
   const [showModal, setShowModal] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<string>("");
 
@@ -25,7 +25,7 @@ export default function Home() {
             "status": assignStatus.statusb
           }
         ],
-        "origin": filialDocs === null ? '' : filialDocs,
+        "origin": filialDocs,
         "customerCode": codeCustomer,
         "startDate": selectedRange.from === null ? '' : moment(dataInicial).format('YYYY-MM-DD'),
         "endDate": selectedRange.to === null ? '' : moment(dataFinal).format('YYYY-MM-DD'),
@@ -40,7 +40,7 @@ export default function Home() {
         });
     };
     getAssignDocs();
-  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus, codeCustomer]);
+  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus, codeCustomer, setAssignDocs]);
 
   const unsecuredCopyToClipboard = (text: any) => {
     const textArea = document.createElement("textarea");
@@ -99,7 +99,7 @@ export default function Home() {
           <h1 className="text-lg text-gray-700 ml-2">acompanhe os status das assinaturas</h1>
         </div>
         <SubBarTop />
-        <div className="mt-6 bg-gray-50 shadow rounded-md p-2 overflow-y-auto">
+        <div className={`mt-6 h-[680px] bg-gray-50 shadow rounded-md p-2 overflow-y-auto`}>
 
           <table className="table-auto w-full text-left text-gray-600 bg-solar-blue-secundary rounded-t-md">
             <tr className=" text-solar-gray-light">
@@ -114,8 +114,8 @@ export default function Home() {
               <th className="p-1">Status</th>
               <th className="p-1"></th>
             </tr>
-            {filterData?.map((doc: any, idx: number) => (
-              <tr key={idx} className={`${idx < filterData.length - 1 && 'border-b border-gray-20'} ${idx % 2 > 0 ? 'bg-gray-50' : 'bg-gray-100'} hover:bg-pink-50`}>
+            {assignDocs?.map((doc: any, idx: number) => (
+              <tr key={idx} className={`${idx < assignDocs.length - 1 && 'border-b border-gray-20'} ${idx % 2 > 0 ? 'bg-gray-50' : 'bg-gray-100'} hover:bg-pink-50`}>
                 <td className="p-1">{doc?.customerCode}</td>
                 <td className="p-1 text-sm font-bold">{doc?.customerName}</td>
                 <td className="p-1">{doc.originNF}</td>
@@ -137,11 +137,11 @@ export default function Home() {
               </tr>
             ))}
           </table>
-          {assignDocs?.length > 15 &&
+          {/* {assignDocs?.length > 15 &&
             <div className="py-8 pb-2">
-              <Pagination data={assignDocs} />
+              <Pagination />
             </div>
-          }
+          } */}
         </div>
       </main>
     </>
