@@ -1,4 +1,5 @@
 'use client'
+import Loading from "@/components/Loading";
 import Pagination from "@/components/Pagination";
 import SubBarTop from "@/components/SubBarTop";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -8,13 +9,15 @@ import { useEffect, useState } from "react";
 import { IoCopy } from "react-icons/io5";
 
 export default function Home() {
-  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, filterData, assignDocs, setAssignDocs } = useAuthContext();
+  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, codeNota, assignDocs, setAssignDocs } = useAuthContext();
 
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showLoading, setShowLoading] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<string>("");
 
   useEffect(() => {
     const getAssignDocs = async () => {
+      setShowLoading(true);
       await cailun.post('(WS_FILTER_SIGNATURES)', {
 
         "statuses": [
@@ -26,6 +29,7 @@ export default function Home() {
           }
         ],
         "origin": filialDocs,
+        "invoice": codeNota,
         "customerCode": codeCustomer,
         "startDate": selectedRange.from === null ? '' : moment(dataInicial).format('YYYY-MM-DD'),
         "endDate": selectedRange.to === null ? '' : moment(dataFinal).format('YYYY-MM-DD'),
@@ -33,6 +37,7 @@ export default function Home() {
       })
         .then((result) => {
           const { data } = result.data.response;
+          setShowLoading(false);
           setAssignDocs(data);
         })
         .catch((err) => {
@@ -40,7 +45,7 @@ export default function Home() {
         });
     };
     getAssignDocs();
-  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus, codeCustomer, setAssignDocs]);
+  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus, codeCustomer, setAssignDocs, codeNota]);
 
   const unsecuredCopyToClipboard = (text: any) => {
     const textArea = document.createElement("textarea");
@@ -91,6 +96,9 @@ export default function Home() {
     <>
       {showModal &&
         <ModalCopy />
+      }
+      {showLoading &&
+        <Loading />
       }
       <main className="container mx-auto">
         <div className="flex items-center justify-start py-4">

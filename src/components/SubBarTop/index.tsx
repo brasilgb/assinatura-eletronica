@@ -6,6 +6,8 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { IoMdPerson } from "react-icons/io";
 import InputSearch from "../InputSearch";
 import moment from "moment";
+import FormCliente from "../Forms/FormCliente";
+import FormNota from "../Forms/FormNota";
 
 const SubBarTop = () => {
   const {
@@ -17,24 +19,27 @@ const SubBarTop = () => {
     setSelectedRange,
     setCodeCustomer,
     setInputValue,
+    setInputCustomer,
+    setInputNota,
+    setCodeNota
   } = useAuthContext();
 
-  const [inputCustomer, setInputCustomer] = useState("");
+
 
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
-    setSelectedRange({
-      from: {
-        year: parseInt(moment().format('YYYY')),
-        month: parseInt(moment().format('MM')),
-        day: parseInt(moment().format('DD')),
-      },
-      to: {
-        year: parseInt(moment().format('YYYY')),
-        month: parseInt(moment().format('MM')),
-        day: parseInt(moment().format('DD')),
-      },
-    })
+    // setSelectedRange({
+    //   from: {
+    //     year: parseInt(moment().format('YYYY')),
+    //     month: parseInt(moment().format('MM')),
+    //     day: parseInt(moment().format('DD')),
+    //   },
+    //   to: {
+    //     year: parseInt(moment().format('YYYY')),
+    //     month: parseInt(moment().format('MM')),
+    //     day: parseInt(moment().format('DD')),
+    //   },
+    // })
   }
 
   const resetFilters = () => {
@@ -44,19 +49,11 @@ const SubBarTop = () => {
     });
     setFilialDocs(null);
     setCodeCustomer(0);
+    setCodeNota("");
     setInputValue("");
+    setInputCustomer("");
+    setInputNota("")
   };
-
-  const handleCustomer = (e: any) => {
-    const value = e.target.value.toLowerCase();
-    setInputCustomer(value);
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setCodeCustomer(inputCustomer)
-    setInputCustomer("")
-  }
 
   return (
     <>
@@ -72,24 +69,9 @@ const SubBarTop = () => {
           <IoCalendar size={18} />
           <DatePickerBI3 />
         </div>
-        <div className="flex-none mr-5 relative">
-          <form onSubmit={handleSubmit}>
-            <input
-              className="border w-full border-gray-300 rounded h-8 text-gray-500 text-sm placeholder:text-sm px-1 py-1"
-              type="text"
-              placeholder="Código cliente"
-              onChange={handleCustomer}
-              value={inputCustomer}
-            />
-            <button
-              type="submit"
-            >
-              <IoMdPerson
-                size={22}
-                className="absolute right-2 top-1 cursor-pointer text-solar-wine-support"
-              />
-            </button>
-          </form>
+        <div className="flex-1 flex gap-4 mr-4">
+          <FormCliente />
+          <FormNota />
         </div>
         <div className="flex-1">
           <InputSearch />
