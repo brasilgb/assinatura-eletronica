@@ -5,6 +5,7 @@ import SubBarTop from "@/components/SubBarTop";
 import { useAuthContext } from "@/contexts/AuthContext";
 import cailun from "@/services/cailun";
 import moment from "moment";
+import { Anybody } from "next/font/google";
 import { useEffect, useState } from "react";
 import { IoCopy } from "react-icons/io5";
 
@@ -38,7 +39,7 @@ export default function Home() {
         .then((result) => {
           const { data } = result.data.response;
           setShowLoading(false);
-          setAssignDocs(data);
+          setAssignDocs( data.sort((a:any, b:any) => (a.creationDate > b.creationDate ? 1 : -1)) );
         })
         .catch((err) => {
           console.log(err);
