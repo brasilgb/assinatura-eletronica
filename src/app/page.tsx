@@ -74,7 +74,7 @@ export default function Home() {
 
   const ModalCopy = () => {
     return (
-      <div className="fixed top-0 right-0 bottom-0 left-0 bg-gray-800 bg-opacity-10 flex items-center justify-center">
+      <div className="fixed top-0 right-0 bottom-0 left-0 bg-gray-800 bg-opacity-10 flex items-center justify-center z-50">
         <div className="w-1/3 bg-white rounded-md shadow-md p-1">
           <div className="p-2 text-solar-gray-light bg-solar-blue-primary rounded-t">Copiado</div>
           <div className="pt-4 px-2 bg-gray-100 text-lg text-center text-gray-600">Link copiado para a área de transferência</div>
