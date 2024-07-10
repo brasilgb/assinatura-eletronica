@@ -10,18 +10,17 @@ interface PaginationProps {
 }
 
 const Pagination = ({ data }: PaginationProps) => {
-    const { setFilterData, assignDocs } = useAuthContext();
+    const { setFilterData } = useAuthContext();
     const [page, setPage] = useState(0);
     const n = 15;
 
     useEffect(() => {
         setFilterData(
-            assignDocs?.filter((item: any, index: number) => {
+            data?.filter((item: any, index: number) => {
                 return (index >= page * n) && (index < (page + 1) * n);
             })
         );
-    }, [page, assignDocs]);
-
+    }, [page, data]);
 
     return (
         <ReactPaginate

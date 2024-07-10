@@ -31,7 +31,7 @@ const InputSearch = () => {
   const handleCities = async (e: any) => {
     const value = e.target.value.toLowerCase();
     setInputValue(value);
-    if (value.length > 2) {
+    if (value.length > 1) {
       const result = resultCities.filter((city: any) =>
         city.description.toLowerCase().includes(value),
       );
@@ -68,7 +68,7 @@ const InputSearch = () => {
       </div>
 
       {allCities.length > 0 && (
-        <div className="absolute bg-gray-50 border border-gray-200 w-full top-8 rounded shadow-md text-sm text-gray-500 max-h-60 overflow-y-auto">
+        <div className="absolute bg-gray-50 border border-gray-200 w-full top-8 rounded shadow-md text-sm text-gray-500 max-h-60 overflow-y-auto z-40">
           <ul className="p-1">
             {allCities?.map((city: any, idx: number) => (
               <li

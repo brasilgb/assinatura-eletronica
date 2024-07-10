@@ -5,12 +5,13 @@ import SubBarTop from "@/components/SubBarTop";
 import { useAuthContext } from "@/contexts/AuthContext";
 import cailun from "@/services/cailun";
 import moment from "moment";
-import { Anybody } from "next/font/google";
+import { Anybody, Rowdies } from "next/font/google";
 import { useEffect, useState } from "react";
-import { IoCopy } from "react-icons/io5";
+import DataTable from "react-data-table-component";
+import { IoArrowDown, IoCopy } from "react-icons/io5";
 
 export default function Home() {
-  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, codeNota, assignDocs, setAssignDocs } = useAuthContext();
+  const { filialDocs, filterData, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, codeNota, assignDocs, setAssignDocs } = useAuthContext();
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showLoading, setShowLoading] = useState<boolean>(false);
@@ -39,7 +40,7 @@ export default function Home() {
         .then((result) => {
           const { data } = result.data.response;
           setShowLoading(false);
-          setAssignDocs( data.sort((a:any, b:any) => (a.creationDate > b.creationDate ? 1 : -1)) );
+          setAssignDocs(data.sort((a: any, b: any) => (a.creationDate < b.creationDate ? 1 : -1)));
         })
         .catch((err) => {
           console.log(err);
@@ -93,6 +94,97 @@ export default function Home() {
     )
   }
 
+  const columns:any = [
+
+    {
+      id: 1,
+      name: 'Código',
+      selector: (row: any) => row.customerCode,
+      sortable: true,
+      width: '100px'
+    },
+    {
+      id: 2,
+      name: 'Cliente',
+      selector: (row: any) => row.customerName,
+      sortable: true,
+      width: '300px'
+    },
+    {
+      id: 3,
+      name: 'Filial',
+      selector: (row: any) => row.originNF,
+      sortable: true,
+      width: '80px'
+    },
+    {
+      id: 4,
+      name: 'NF',
+      selector: (row: any) => row.numberNF,
+      sortable: true,
+      width: '100px'
+    },
+    {
+      id: 5,
+      name: 'Série',
+      selector: (row: any) => row.serieNF,
+      sortable: true,
+      width: '100px'
+    },
+    {
+      id: 6,
+      name: 'Data',
+      selector: (row: any) => moment(row.creationDate).format("DD/MM/YYYY"),
+      sortable: true,
+      width: '150px'
+    },
+    {
+      id: 7,
+      name: 'Link',
+      selector: (row: any) => row.link
+    },
+    {
+      id: 8,
+      name: 'Tipo',
+      selector: (row: any) => <span className="p-1 text-solar-blue-secundary text-base font-medium">{row.type}</span>,
+      width: '60px'
+    },
+    {
+      id: 9,
+      name: 'Status',
+      selector: (row: any) => <span className="p-1 text-solar-green-primary text-base font-medium">{row.status}</span>,
+      width: '80px'
+    },
+    {
+      name: '',
+      selector: (row: any) => <button
+        onClick={() => handleButtonLink(row.link)}
+        title="Copiar link"
+        className="text-lg bg-solar-blue-primary text-gray-50 p-1 rounded shadow-md"
+      >
+        <IoCopy />
+      </button>,
+      width: '60px'
+    },
+  ];
+
+  const paginationComponentOptions = {
+    rowsPerPageText: 'Linhas por página',
+    rangeSeparatorText: 'de',
+    selectAllRowsItem: true,
+    selectAllRowsItemText: 'Todos',
+  };
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: "#0d3b85",
+        color: "white",
+        fontSize: "14px"
+      },
+    },
+  };
+
   return (
     <>
       {showModal &&
@@ -108,9 +200,8 @@ export default function Home() {
           <h1 className="text-lg text-gray-700 ml-2">acompanhe os status das assinaturas</h1>
         </div>
         <SubBarTop />
-        <div className={`mt-6 max-h-[680px] bg-gray-50 shadow rounded-md p-2 overflow-y-auto`}>
-
-          <table className="table-auto w-full text-left text-gray-600 bg-solar-blue-secundary rounded-t-md">
+        <div className={`mt-4 bg-gray-50 shadow rounded-md p-2`}>
+          {/* <table className="table-auto w-full text-left text-gray-600 bg-solar-blue-secundary rounded-t-md">
             <tr className=" text-solar-gray-light">
               <th className="p-1">Código</th>
               <th className="p-1">Cliente</th>
@@ -145,12 +236,23 @@ export default function Home() {
                 </td>
               </tr>
             ))}
-          </table>
+          </table> */}
           {/* {assignDocs?.length > 15 &&
             <div className="py-8 pb-2">
-              <Pagination />
-            </div>
-          } */}
+              <Pagination data={assignDocs} />
+            </div> */}
+          {/* } */}
+          <DataTable
+            columns={columns}
+            data={assignDocs}
+            pagination
+            striped
+            paginationComponentOptions={paginationComponentOptions}
+            customStyles={customStyles}
+            highlightOnHover={true}
+            paginationPerPage={12}
+            paginationRowsPerPageOptions={[12, 20, 25, 30]}
+          />
         </div>
       </main>
     </>
