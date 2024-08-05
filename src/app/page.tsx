@@ -1,17 +1,15 @@
 'use client'
 import Loading from "@/components/Loading";
-import Pagination from "@/components/Pagination";
 import SubBarTop from "@/components/SubBarTop";
 import { useAuthContext } from "@/contexts/AuthContext";
 import cailun from "@/services/cailun";
 import moment from "moment";
-import { Anybody, Rowdies } from "next/font/google";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { IoArrowDown, IoCopy } from "react-icons/io5";
+import { IoCopy } from "react-icons/io5";
 
 export default function Home() {
-  const { filialDocs, filterData, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, codeNota, assignDocs, setAssignDocs } = useAuthContext();
+  const { filialDocs, assignStatus, assignType, dataInicial, dataFinal, selectedRange, codeCustomer, codeNota, assignDocs, setAssignDocs } = useAuthContext();
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showLoading, setShowLoading] = useState<boolean>(false);
@@ -95,7 +93,6 @@ export default function Home() {
   }
 
   const columns:any = [
-
     {
       id: 1,
       name: 'Código',
@@ -201,47 +198,7 @@ export default function Home() {
         </div>
         <SubBarTop />
         <div className={`mt-2 bg-gray-50 shadow rounded-md p-2`}>
-          {/* <table className="table-auto w-full text-left text-gray-600 bg-solar-blue-secundary rounded-t-md">
-            <tr className=" text-solar-gray-light">
-              <th className="p-1">Código</th>
-              <th className="p-1">Cliente</th>
-              <th className="p-1">Filial</th>
-              <th className="p-1">NF</th>
-              <th className="p-1">Série</th>
-              <th className="p-1">Data</th>
-              <th className="p-1">Link</th>
-              <th className="p-1">Tipo</th>
-              <th className="p-1">Status</th>
-              <th className="p-1"></th>
-            </tr>
-            {assignDocs?.map((doc: any, idx: number) => (
-              <tr key={idx} className={`${idx < assignDocs.length - 1 && 'border-b border-gray-20'} ${idx % 2 > 0 ? 'bg-gray-50' : 'bg-gray-100'} hover:bg-pink-50`}>
-                <td className="p-1">{doc?.customerCode}</td>
-                <td className="p-1 text-sm font-bold">{doc?.customerName}</td>
-                <td className="p-1">{doc.originNF}</td>
-                <td className="p-1">{doc.numberNF}</td>
-                <td className="p-1">{doc.serieNF}</td>
-                <td className="p-1">{moment(doc.creationDate).format("DD/MM/YYYY")}</td>
-                <td className="p-1">{doc.link}</td>
-                <td className="p-1 text-solar-blue-secundary">{doc.type}</td>
-                <td className="p-1 text-solar-green-primary">{doc.status}</td>
-                <td>
-                  <button
-                    onClick={() => handleButtonLink(doc.link)}
-                    title="Copiar link"
-                    className="text-lg bg-solar-blue-primary text-gray-50 p-1 rounded shadow-md"
-                  >
-                    <IoCopy />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </table> */}
-          {/* {assignDocs?.length > 15 &&
-            <div className="py-8 pb-2">
-              <Pagination data={assignDocs} />
-            </div> */}
-          {/* } */}
+
           <DataTable
             columns={columns}
             data={assignDocs}
