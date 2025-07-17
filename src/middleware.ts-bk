@@ -5,7 +5,6 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const cookies = req.headers.get('cookie') || '';
   const { portal_access } = cookie.parse(cookies);
-
   if (!portal_access) {
     return NextResponse.redirect(new URL('/acesso-negado', req.url));
   }

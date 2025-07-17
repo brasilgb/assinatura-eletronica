@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { IoCalendar, IoReload } from "react-icons/io5";
 import DatePickerBI3 from "../DatePicker";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { IoMdPerson } from "react-icons/io";
 import InputSearch from "../InputSearch";
 import moment from "moment";
 import FormCliente from "../Forms/FormCliente";
 import FormNota from "../Forms/FormNota";
+import ContratosPdf from "../ContratosPdf";
 
 const SubBarTop = () => {
   const {
@@ -21,25 +21,24 @@ const SubBarTop = () => {
     setInputValue,
     setInputCustomer,
     setInputNota,
-    setCodeNota
+    setCodeNota,
+    assignDocs
   } = useAuthContext();
-
-
 
   const handleSignedDownlod = () => {
     setAssignStatus({ "statusa": "A", "statusb": "D" });
-    // setSelectedRange({
-    //   from: {
-    //     year: parseInt(moment().format('YYYY')),
-    //     month: parseInt(moment().format('MM')),
-    //     day: parseInt(moment().format('DD')),
-    //   },
-    //   to: {
-    //     year: parseInt(moment().format('YYYY')),
-    //     month: parseInt(moment().format('MM')),
-    //     day: parseInt(moment().format('DD')),
-    //   },
-    // })
+    setSelectedRange({
+      from: {
+        year: parseInt(moment().format('YYYY')),
+        month: parseInt(moment().format('MM')),
+        day: parseInt(moment().format('DD')),
+      },
+      to: {
+        year: parseInt(moment().format('YYYY')),
+        month: parseInt(moment().format('MM')),
+        day: parseInt(moment().format('DD')),
+      },
+    })
   }
 
   const resetFilters = () => {
@@ -76,7 +75,10 @@ const SubBarTop = () => {
         <div className="flex-1">
           <InputSearch />
         </div>
-        <div className="md:ml-10">
+        <div className="md:ml-4">
+          <ContratosPdf assignDocs={assignDocs} />
+        </div>
+        <div className="md:ml-4">
           <ul className="pr-10 flex items center justify-start gap-6">
             <li>
               <button

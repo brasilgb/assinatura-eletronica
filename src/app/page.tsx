@@ -38,14 +38,15 @@ export default function Home() {
         .then((result) => {
           const { data } = result.data.response;
           setShowLoading(false);
-          setAssignDocs(data.sort((a: any, b: any) => (a.creationDate < b.creationDate ? 1 : -1)));
+          const newData = data.filter((fil: any) => (fil.status !== "E"));
+          setAssignDocs(newData.sort((a: any, b: any) => (a.creationDate < b.creationDate ? 1 : -1)));
         })
         .catch((err) => {
           console.log(err);
         });
     };
     getAssignDocs();
-  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus, codeCustomer, setAssignDocs, codeNota]);
+  }, [filialDocs, dataInicial, dataFinal, assignType, assignStatus, codeCustomer, codeNota]);
 
   const unsecuredCopyToClipboard = (text: any) => {
     const textArea = document.createElement("textarea");
